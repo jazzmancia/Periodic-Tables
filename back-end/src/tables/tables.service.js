@@ -1,58 +1,37 @@
 const knex = require("../db/connection");
+const reservationsService = require('../reservations/reservations.service');
 
-const tableName = "tables";
-
-function list(date) {
-  return knex(tableName)
-    .orderBy("table_name");
-}
-
-function create(table) {
-  return knex(tableName)
-    .insert(table, "*")
-    .then((createdTables) => createdTables[0]);
-}
-
-function seat(table_id, reservation_id) {
-  return knex.transaction(async (transaction) => {
-    await knex("reservations")
-      .where({ reservation_id })
-      .update({ status: "seated" })
-      .transacting(transaction);
-
+function create(newTable) {
     return knex("tables")
-      .where({ table_id })
-      .update({ reservation_id }, "*")
-      .transacting(transaction)
-      .then((records) => records[0]);
-  });
+        .insert(newTable, '*')
+        .then(data => data[0]);
 }
 
-function read(table_id){
-    return knex(tableName)
-      .where("table_id", table_id)
-      .first();
+const read = (table_id) => {
+    return knex('tables').where({ table_id }).first();
+  };
+
+function update(table_id, reservation_id) {
+    return knex('tables')
+        .select('*')
+        .where({'table_id': table_id })
+        .update({'reservation_id': reservation_id })
+        .then(data => data[0]);
 }
 
-function occupy(table) {
-  return knex.transaction(async (transaction) => {
-    await knex("reservations")
-      .where({ reservation_id: table.reservation_id })
-      .update({ status: "finished" })
-      .transacting(transaction);
-
-    return knex(tableName)
-      .where({ table_id: table.table_id })
-      .update({ reservation_id: null }, "*")
-      .transacting(transaction)
-      .then((records) => records[0]);
-  });
+function destroy(table_id){
+    return knex('tables')
+        .where({ 'table_id': table_id })
+        .update({ 'reservation_id': null });
 }
+const list = () => {
+    return knex('tables').orderBy('table_name');
+  };
 
 module.exports = {
-  create,
-  list,
-  seat,
-  read,
-  occupy
+    create,
+    read,
+    update,
+    delete: destroy,
+    list,
 };
