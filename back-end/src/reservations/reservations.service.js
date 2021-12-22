@@ -1,70 +1,51 @@
 const knex = require("../db/connection");
 
-/**
- *  Creates a new reservation
- * @param {newReservation} 
- *  the new reservation data
- * @returns {Promise<Error/any>}}
- *  a promise that resolve to the `json` data or an error
- */
-function create(newReservation) {
-  return knex("reservations")
-    .insert(newReservation, '*')
-    .then(data => data[0]);
+const tableName = "reservations";
+
+function list(date) {
+  return knex(tableName)
+    .where("reservation_date", date)
+    .whereNotIn("status", ["finished", "cancelled"])
+    .orderBy("reservation_time");
 }
 
-/**
- *  Finds a specific reservation
- * @param {reservation_id} 
- *  the reservation id number
- * @returns {Promise<Error/any>}}
- *  a promise that resolve to the `json` data or an error
- */
-function read(reservation_id) {
-  return knex('reservations')
-      .where({'reservation_id': reservation_id})
+function create(reservation) {
+  return knex(tableName)
+    .insert(reservation, "*")
+    .then((createdReservations) => createdReservations[0]);
+}
+
+function read(reservation_id){
+    return knex(tableName)
+      .where("reservation_id", reservation_id)
       .first();
 }
 
-/**
- *  Lists all reservations by a specific date
- * @param {date} 
- *  the current date
- * @returns {Promise<Error/any>}}
- *  a promise that resolve to the `json` data or an error
- */
-function list(date){
-  if (date) {
-    return knex('reservations')
-      .where('reservation_date', date)
-      .orderBy('reservation_time');
+function update(reservation) {
+  return knex(tableName)
+    .where({ reservation_id: reservation.reservation_id })
+    .update(reservation, "*")
+    .then((records) => records[0]);
+}
+
+function status(reservation) {
+    update(reservation);
+    return validStatus(reservation);
+}
+
+function validStatus(reservation) {
+  if (["booked", "seated", "finished", "cancelled"].includes(reservation.status)) {
+    return reservation;
   }
-  return knex('reservations');
+  const error = new Error(
+    `Invalid status:"${reservation.status}"`
+  );
+  error.status = 400;
+  throw error;
 }
 
-/**
- *  Updates a specific reservation
- * @param {reservation} 
- *  the reservation object
- * @returns {Promise<Error/any>}}
- *  a promise that resolve to the `json` data or an error
- */
- function update(reservation) {
-  return knex('reservations')
-      .where({ 'reservation_id': reservation.reservation_id })
-      .update(reservation, '*')
-      .then(data => data[0]);
-}
-
-/**
- *  List all reservations by a specific phone number
- * @param {mobile_number}
- *  the mobile number being searched 
- * @returns 
- *  a promise that resolves to the `json` data or an error
- */
 function search(mobile_number) {
-  return knex("reservations")
+  return knex(tableName)
     .whereRaw(
       "translate(mobile_number, '() -', '') like ?",
       `%${mobile_number.replace(/\D/g, "")}%`
@@ -72,28 +53,10 @@ function search(mobile_number) {
     .orderBy("reservation_date");
 }
 
-/**
- *  Updates a specific reservation, status only
- * @param {reservation_id} 
- *  the reservations id number
- * @param {status} 
- *  the new status
- * @returns {Promise<Error/any>}}
- *  a promise that resolve to the `json` data or an error
- */
- function status(reservation_id, status) {
-  return knex('reservations')
-      .where({ 'reservation_id': reservation_id })
-      .update({ 'status': status })
-      .returning('*')
-      .then(data => data[0]);
-}
-
 module.exports = {
   create,
-  read,
-  update,
   list,
-  search,
+  read,
   status,
+  search
 };
