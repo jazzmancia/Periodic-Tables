@@ -30,7 +30,7 @@ Thinkful Final Capstone - an application for restaurants which allows users to c
 ### ERD
 
 ![Screen Shot 2021-12-14 at 7 26 50 AM]
-
+(<img width="365" alt="Screen Shot 2021-12-27 at 2 22 33 PM" src="https://user-images.githubusercontent.com/86076004/147511425-3d0bc3b5-cb6b-4a79-8cb2-7f05de6282d8.png">)
 
 ### Reservations
 
@@ -79,3 +79,6 @@ An example record looks like the following:
 ```
 
 ## Screenshots
+![Screen Shot 2021-12-27 at 2 23 49 PM](https://user-images.githubusercontent.com/86076004/147511412-b42f4a79-a9cd-4b3d-af47-116f543c75db.png)
+![Screen Shot 2021-12-27 at 2 24 08 PM](https://user-images.githubusercontent.com/86076004/147511415-ec3d9ec6-7d41-41c9-9b5c-a85d69173acf.png)
+![Screen Shot 2021-12-27 at 2 22 52 PM](https://user-images.githubusercontent.com/86076004/147511428-e03ee4c9-d438-4648-ad09-0fc9be1709ac.png)
