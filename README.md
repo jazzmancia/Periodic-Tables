@@ -84,4 +84,4 @@ An example record looks like the following:
 ![Screen Shot 2021-12-27 at 2 24 36 PM](https://user-images.githubusercontent.com/86076004/147511418-94eb00c5-e1c5-4935-91f6-f3c766b504a8.png)
 ![Screen Shot 2021-12-27 at 2 23 49 PM](https://user-images.githubusercontent.com/86076004/147511412-b42f4a79-a9cd-4b3d-af47-116f543c75db.png)
 ![Screen Shot 2021-12-27 at 2 24 08 PM](https://user-images.githubusercontent.com/86076004/147511415-ec3d9ec6-7d41-41c9-9b5c-a85d69173acf.png)
-![Screen Shot 2021-12-27 at 2 23 19 PM](https://user-images.githubusercontent.com/86076004/147511572-4dc86035-4225-4985-b3a0-a9ab71816b5d.png)
+![Screen Shot 2021-12-27 at 2 39 28 PM](https://user-images.githubusercontent.com/86076004/147511639-8b095669-d562-4436-a9a2-c9af6a44663c.png)
