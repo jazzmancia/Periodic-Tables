@@ -111,6 +111,24 @@ function checkStatus(req, res, next){
   next();
 }
 
+function checkTime(req, res, next) {
+  const reservation = req.body.data;
+  const [hour, minute] = reservation.reservation_time.split(":");
+  if (hour < 10 || hour > 21) {
+    return next({
+      status: 400,
+      message: "Reservation must be made within business hours",
+    });
+  }
+  if ((hour < 11 && minute < 30) || (hour > 20 && minute > 30)) {
+    return next({
+      status: 400,
+      message: "Reservation must be made within business hours",
+    });
+  }
+  next();
+}
+
 function isValidNumber(req, res, next){
   const { data = {} } = req.body;
   if (data['people'] === 0 || !Number.isInteger(data['people'])){
@@ -193,6 +211,7 @@ module.exports = {
       isTime,
       isValidNumber,
       checkStatus,
+      checkTime, 
       asyncErrorBoundary(create)
   ],
   read: [hasReservationId, reservationExists, asyncErrorBoundary(read)],
