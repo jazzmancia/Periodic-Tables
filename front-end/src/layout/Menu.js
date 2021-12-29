@@ -24,7 +24,7 @@ function Menu() {
         <ul className="nav navbar-nav text-white" id="accordionSidebar">
           <li className="nav-item">
             <Link className="nav-link" to="/dashboard">
-              <span className="oi oi-spreadsheet" />
+              <span className="oi oi-dashboard" />
               &nbsp;Dashboard
             </Link>
           </li>
@@ -42,7 +42,7 @@ function Menu() {
           </li>
           <li className="nav-item">
             <Link className="nav-link" to="/tables/new">
-              <span className="oi oi-vertical-align-top" />
+              <span className="oi oi-layers" />
               &nbsp;New Table
             </Link>
           </li>
