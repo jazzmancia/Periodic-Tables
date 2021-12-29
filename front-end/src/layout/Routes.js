@@ -1,17 +1,16 @@
 import React from "react";
-
 import { Redirect, Route, Switch } from "react-router-dom";
-import Dashboard from "../dashboard/Dashboard";
-import ReservationNew from "../reservations/ReservationNew";
-import ReservationSeat from "../reservations/ReservationSeat";
-import ReservationEdit from "../reservations/ReservationEdit";
-import TableNew from "../tables/TableNew";
-import NotFound from "./NotFound";
-import { today } from "../utils/date-time";
+
 import useQuery from "../utils/useQuery";
-import Search from "../search/Search";
+import { today } from "../utils/date-time";
 
-
+import Dashboard from "../dashboard/Dashboard";
+import Tables from "../forms/AddTables";
+import Seat from "../forms/Seat";
+import Edit from "../forms/reservations/Edit";
+import Search from "../forms/Search";
+import Reservations from "../forms/reservations/Reservations";
+import NotFound from "./NotFound";
 
 /**
  * Defines all the routes for the application.
@@ -22,7 +21,7 @@ import Search from "../search/Search";
  */
 function Routes() {
   const query = useQuery();
-
+  const date = query.get("date");
   return (
     <Switch>
       <Route exact={true} path="/">
@@ -32,19 +31,19 @@ function Routes() {
         <Redirect to={"/dashboard"} />
       </Route>
       <Route path="/dashboard">
-        <Dashboard date={query.get("date") || today() } />
+        <Dashboard date={date || today()} />
       </Route>
-      <Route path="/reservations/new">
-        <ReservationNew />
+      <Route exact path="/reservations/new">
+        <Reservations />
       </Route>
-      <Route path="/reservations/:reservation_id/seat">
-        <ReservationSeat />
+      <Route exact path="/reservations/:reservation_id/seat">
+        <Seat />
       </Route>
-      <Route path="/reservations/:reservation_id/edit">
-        <ReservationEdit />
+      <Route exact path="/reservations/:reservation_id/edit">
+        <Edit />
       </Route>
       <Route path="/tables/new">
-        <TableNew />
+        <Tables />
       </Route>
       <Route path="/search">
         <Search />

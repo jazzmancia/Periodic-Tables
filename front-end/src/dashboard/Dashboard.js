@@ -1,53 +1,77 @@
 import React, { useEffect, useState } from "react";
-import { listReservations, listTables, finishTable, cancelReservation } from "../utils/api";
+import ReservationTable from "./reservationView/ReservationTable";
+import { listReservations, listTables } from "../utils/api";
 import ErrorAlert from "../layout/ErrorAlert";
-import Reservations from "./Reservations";
-import Tables from "./Tables";
+import { useHistory } from "react-router-dom";
+import { previous, next } from "../utils/date-time";
+import TableList from "./tableView/TableList";
 
+/**
+ * Defines the dashboard page.
+ * @param date
+ *  the date for which the user wants to view reservations.
+ * @returns {JSX.Element}
+ */
 function Dashboard({ date }) {
+  const history = useHistory();
+
   const [reservations, setReservations] = useState([]);
   const [reservationsError, setReservationsError] = useState(null);
-  const [tables, setTables] = useState([]);
 
-  useEffect(loadDashboard, [date]);
+  const [tables, setTables] = useState([]);
 
   function loadDashboard() {
     const abortController = new AbortController();
     setReservationsError(null);
     listReservations({ date }, abortController.signal)
       .then(setReservations)
+      .then(listTables)
+      .then(setTables)
       .catch(setReservationsError);
-
-    listTables().then(setTables)
     return () => abortController.abort();
   }
 
-  function onCancel(reservation_id) {
-    cancelReservation(reservation_id)
-      .then(loadDashboard)
-      .catch(setReservationsError);
+  useEffect(loadDashboard, [date]);
+
+  function handlePreviousDay() {
+    history.push(`/dashboard?date=${previous(date)}`);
   }
 
-  function onFinish(table_id, reservation_id) {
-    finishTable(table_id, reservation_id)
-      .then(loadDashboard)
+  function handleNextDay() {
+    history.push(`/dashboard?date=${next(date)}`);
   }
 
+  function handleCurrentDay() {
+    history.push(`/dashboard`);
+  }
   return (
     <main>
-      <h1>Dashboard</h1>
-      <div className="d-md-flex mb-3">
-        <h4 className="mb-0">Reservations</h4>
+      <h1 className="d-md-flex justify-content-center">Dashboard</h1>
+      <div className="d-md-flex mb-3 justify-content-center">
+        <h4 className="mb-0">Reservations for {date}</h4>
+      </div>
+      <div className="pb-2 d-flex justify-content-center">
+        <button className="btn btn-primary mr-1" onClick={handlePreviousDay}>
+          previous
+        </button>
+        <button className="btn btn-primary mr-1" onClick={handleCurrentDay}>
+          today
+        </button>
+        <button className="btn btn-primary" onClick={handleNextDay}>
+          next
+        </button>
       </div>
       <ErrorAlert error={reservationsError} />
-      <Reservations reservations={reservations} onCancel={onCancel} />
-      <div className="d-md-flex mb-3">
-        <h4 className="mb-0">Tables</h4>
+      <ReservationTable
+        reservations={reservations}
+        setReservations={setReservations}
+        setError={setReservationsError}
+      />
+      <div>
+        <TableList tables={tables} loadDashboard={loadDashboard} />
       </div>
-      <Tables onFinish={onFinish} tables={tables} />
     </main>
   );
 }
-
 
 export default Dashboard;
