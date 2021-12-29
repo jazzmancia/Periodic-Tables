@@ -6,12 +6,7 @@ import { useHistory } from "react-router-dom";
 import { previous, next } from "../utils/date-time";
 import TableList from "./tableView/TableList";
 
-/**
- * Defines the dashboard page.
- * @param date
- *  the date for which the user wants to view reservations.
- * @returns {JSX.Element}
- */
+
 function Dashboard({ date }) {
   const history = useHistory();
 
@@ -21,14 +16,14 @@ function Dashboard({ date }) {
   const [tables, setTables] = useState([]);
 
   function loadDashboard() {
-    const abortController = new AbortController();
+    const ac = new AbortController();
     setReservationsError(null);
-    listReservations({ date }, abortController.signal)
+    listReservations({ date }, ac.signal)
       .then(setReservations)
       .then(listTables)
       .then(setTables)
       .catch(setReservationsError);
-    return () => abortController.abort();
+    return () => ac.abort();
   }
 
   useEffect(loadDashboard, [date]);

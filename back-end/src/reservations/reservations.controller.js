@@ -10,7 +10,6 @@ const ValidFields = [
   "people",
 ];
 
-//helper function for validation
 function _correctTimeFormat(str) {
   const [hour, minute] = str.split(":");
 
@@ -26,7 +25,7 @@ function _correctTimeFormat(str) {
   return true;
 }
 
-//validation middleware
+
 function isValidReservation(req, res, next) {
   const reservation = req.body.data;
 

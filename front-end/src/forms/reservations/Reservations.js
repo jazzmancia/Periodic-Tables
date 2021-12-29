@@ -34,7 +34,7 @@ export default function Reservations() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const controller = new AbortController();
+    const ac = new AbortController();
     const errors = [];
     findErrors(formData.reservation_date, errors);
     if (errors.length) {
@@ -43,13 +43,13 @@ export default function Reservations() {
     }
     try {
       formData.people = Number(formData.people);
-      await createReservation(formData, controller.signal);
+      await createReservation(formData, ac.signal);
       const date = formData.reservation_date;
       history.push(`/dashboard?date=${date}`);
     } catch (error) {
       setReservationsError(error);
     }
-    return () => controller.abort();
+    return () => ac.abort();
   };
 
   return (

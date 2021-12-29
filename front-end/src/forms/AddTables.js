@@ -18,17 +18,17 @@ export default function Tables() {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    const c = new AbortController();
+    const ac = new AbortController();
     try {
       tableForm.capacity = Number(tableForm.capacity);
-      const response = await createTable(tableForm, c.signal);
+      const response = await createTable(tableForm, ac.signal);
       if (response) {
         history.push("/dashboard");
       }
     } catch (error) {
       setTableError(error);
     }
-    return () => c.abort();
+    return () => ac.abort();
   }
 
   function handleCancel() {
