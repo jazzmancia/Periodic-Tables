@@ -1,9 +1,14 @@
 const router = require("express").Router();
+const methodNotAllowed = require("../errors/methodNotAllowed");
 const controller = require("./tables.controller");
-const reservationController = require("../reservations/reservations.controller");
+const seatRouter = require("../seat/seat.router");
 
-router.route("/").post(controller.create).get(controller.list).all();
-//router.route("/:table_id").get(controller.read).all();
-router.route("/:table_id/seat").put(reservationController.reservationExists, controller.seat).delete(controller.occupy).all();
+router.use("/:table_id/seat", seatRouter);
+
+router
+  .route("/")
+  .get(controller.list)
+  .post(controller.create)
+  .all(methodNotAllowed);
 
 module.exports = router;
