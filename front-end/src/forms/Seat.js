@@ -78,7 +78,7 @@ export default function Seat() {
             {options}
           </select>
         </label>
-        <button className="btn btn-primary mr-1" type="submit">
+        <button className="btn btn-info mr-1" type="submit">
           Submit
         </button>
         <button className="btn btn-secondary" onClick={handleCancel}>

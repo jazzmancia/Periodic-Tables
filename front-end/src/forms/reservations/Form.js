@@ -91,7 +91,7 @@ export default function Form({
           />
         </fieldset>
         <div className="d-flex justify-content-center pt-2">
-          <button type="submit" className="btn btn-primary mr-1">
+          <button type="submit" className="btn btn-info mr-1">
             Submit
           </button>
           <button
