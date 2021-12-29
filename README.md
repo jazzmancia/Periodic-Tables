@@ -81,7 +81,8 @@ An example record looks like the following:
 
 ## Screenshots
 
-![Screen Shot 2021-12-27 at 2 24 36 PM](https://user-images.githubusercontent.com/86076004/147511418-94eb00c5-e1c5-4935-91f6-f3c766b504a8.png)
-![Screen Shot 2021-12-27 at 2 23 49 PM](https://user-images.githubusercontent.com/86076004/147511412-b42f4a79-a9cd-4b3d-af47-116f543c75db.png)
-![Screen Shot 2021-12-27 at 2 24 08 PM](https://user-images.githubusercontent.com/86076004/147511415-ec3d9ec6-7d41-41c9-9b5c-a85d69173acf.png)
-![Screen Shot 2021-12-27 at 2 39 28 PM](https://user-images.githubusercontent.com/86076004/147511639-8b095669-d562-4436-a9a2-c9af6a44663c.png)
+![Screen Shot 2021-12-28 at 6 20 09 PM](https://user-images.githubusercontent.com/86076004/147621278-e760688d-790a-4f4d-b608-814e203a50ef.png)
+![Screen Shot 2021-12-28 at 6 19 51 PM](https://user-images.githubusercontent.com/86076004/147621280-c733e364-9e79-454b-ad80-2b25d0a991d7.png)
+![Screen Shot 2021-12-28 at 6 19 36 PM](https://user-images.githubusercontent.com/86076004/147621282-be0621ea-fe07-46e4-b837-ebbb470f21ee.png)
+![Screen Shot 2021-12-28 at 6 19 20 PM](https://user-images.githubusercontent.com/86076004/147621283-e8b4ce04-9de6-403b-8bb7-ed67cb78f9aa.png)
+
